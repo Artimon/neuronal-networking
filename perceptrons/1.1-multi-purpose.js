@@ -7,6 +7,11 @@
  * It now uses the sigmoid function instead of the squared non linear
  * product of the simple version.
  *
+ * Learning rate has been removed as it is not necessary for the example
+ * but could be added to improve precision for more fine-tuned usage.
+ * Just multiply the gradient value in the perceptron.rethink(...)
+ * method with the learning rate.
+ *
  * @constructor
  */
 function Perceptron() {
@@ -20,7 +25,7 @@ function Perceptron() {
 }
 
 /**
- * You may pass any kind of object but you should keep the patter
+ * You may pass any kind of object but you should keep the pattern
  * identical once you fed one pattern in.
  * The values should be in a range between 0 and 1.
  *

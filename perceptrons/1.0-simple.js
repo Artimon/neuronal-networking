@@ -1,7 +1,7 @@
 /**
  * Very simple perceptron with a concrete implementation based on
  * the excitement behaviour of kerbals in kerbal space program.
- * The more courage and stupid kerbals are the more excited they
+ * The more courageous and stupid kerbals are the more excited they
  * are about anything.
  *
  * Copy the code into your browser console following given steps.
@@ -11,7 +11,7 @@
  * @constructor
  */
 function Perceptron () {
-	this.weight = { bias: 0, courage: 0, stupidity: 0 };
+	this.weights = { bias: 0, courage: 0, stupidity: 0 };
 	this.learningRate = 0.1;
 }
 
@@ -19,13 +19,13 @@ function Perceptron () {
  * The input numbers may be of any value.
  *
  * @param {{ courage: number, stupidity: number }} input
- * @param {boolean} [expectedResult] optional for training.
+ * @param {boolean} [expectation] optional for training.
  * @returns {string}
  */
-Perceptron.prototype.think = function (input, expectedResult) {
+Perceptron.prototype.think = function (input, expectation) {
 	var weightedInput = 0,
 		nonLinearProduct,
-		percept,
+		activation,
 		direction;
 
 	/*
@@ -34,9 +34,9 @@ Perceptron.prototype.think = function (input, expectedResult) {
 	 */
 	input.bias = 1;
 
-	weightedInput += this.weight.bias      * input.bias;
-	weightedInput += this.weight.courage   * input.courage;
-	weightedInput += this.weight.stupidity * input.stupidity;
+	weightedInput += this.weights.bias      * input.bias;
+	weightedInput += this.weights.courage   * input.courage;
+	weightedInput += this.weights.stupidity * input.stupidity;
 
 	/*
 	 * Important:
@@ -50,23 +50,30 @@ Perceptron.prototype.think = function (input, expectedResult) {
 	 * Just chose a random activation threshold, could also be 0 for
 	 * example.
 	 */
-	percept = nonLinearProduct > 1;
+	activation = nonLinearProduct > 1;
 
-	if (expectedResult!== undefined && expectedResult!== percept) {
-		direction = expectedResult? 1 : -1;
+	/*
+	 * Got an expectation and it differs from the result?
+	 * Adjust input weights depending on the expectation and input
+	 */
+	if (
+		expectation !== undefined &&
+		expectation !== activation
+	) {
+		direction = expectation ? 1 : -1;
 
-		this.weight.bias      += this.learningRate * direction * input.bias;
-		this.weight.courage   += this.learningRate * direction * input.courage;
-		this.weight.stupidity += this.learningRate * direction * input.stupidity;
+		this.weights.bias      += this.learningRate * direction * input.bias;
+		this.weights.courage   += this.learningRate * direction * input.courage;
+		this.weights.stupidity += this.learningRate * direction * input.stupidity;
 
-		console.log('Learning new weights:', this.weight);
+		console.log('Learning new weights:', this.weights);
 	}
 
-	return percept? 'I like to test dangerous new stuff!' : 'I´d prefer staying on solid ground...';
+	return activation? 'I like to test dangerous new stuff!' : 'I´d prefer staying on solid ground...';
 };
 
 
-// No create a perceptron.
+// Now create a perceptron.
 p = new Perceptron();
 
 // Train until "I like to test dangerous new stuff!" appears.
