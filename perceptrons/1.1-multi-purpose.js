@@ -77,7 +77,7 @@ Perceptron.prototype.rethink = function (expectation) {
 		gradient;
 
 	if (expectation === this.activation) {
-		return;
+		return expectation;
 	}
 
 	gradient = expectation - this.percept;
