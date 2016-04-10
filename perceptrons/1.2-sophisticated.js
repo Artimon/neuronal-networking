@@ -91,16 +91,17 @@ Perceptron.prototype.answer = function () {
  * expected just call the perceptron.train(...) method with the
  * correct expectation. It will return the new result after rethinking.
  *
+ * Changes:
+ * Ignoring correct answers on training has been removed to be able to
+ * train stronger perceptions. As the relative error in been taken the
+ * impact on previous trainings is not too hard.
+ *
  * @param {number} expectation range [-1 to +1]
  * @returns {number}
  */
 Perceptron.prototype.train = function (expectation) {
 	var self = this,
 		error;
-
-	if (expectation === this.answer()) {
-		return this.output;
-	}
 
 	error = expectation - this.output;
 
