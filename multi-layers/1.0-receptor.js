@@ -38,7 +38,7 @@ patternForC = [
  * Now lets train a perceptron to detect painted values. Instead of
  * bright (0) and dark (1) "darkness" values you could also use a soft
  * range representing greyscale values, too.
- * Even extracting the intensity from rpg values or whatever you like.
+ * Even extracting the intensity from rpg values or whatever you like is possible.
  */
 pPainted = new Perceptron();
 
@@ -62,9 +62,8 @@ pLetterT = new Perceptron();
 
 /*
  * The input for detecting a "T" now is simply a set of read-in "pixels".
- * Structured as a 2-dimensional here it actually is only a list of the
- * results for pattern that now can be used as input for the perceptron
- * that shall detect the T.
+ * Structured as a simple list of the results for pattern that then can
+ * be used as input for the perceptron that shall detect the T.
  */
 inputForT = [];
 pLetterT.foreach(patterForT, function (paint) {
@@ -150,8 +149,8 @@ pLetterC.feedForward(inputForBadlyWrittenT); // Negative result, it did not matc
  *
  * The value range can be extended to greyscale and the read-in matrix
  * can be increased to detect many more different versions of more
- * letters, that is where the power of the perceptrons, or this very
- * simple multi-layer-perceptron kicks ins.
+ * letters. That is where the power of the perceptrons, or this very
+ * simple multi-layer-perceptron kicks in.
  *
  * You may try that if you want!
  *
